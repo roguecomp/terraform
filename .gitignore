@@ -1,0 +1,4 @@
+test/.terraform/
+test/.terraform*
+test/*.tfstate
+test/*.tfstate.backup
