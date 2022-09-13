@@ -33,19 +33,19 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_iam_policy" "lambda_policy" {
   name = "lambda_policy"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Action": [
+        "Action" : [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        "Resource": "arn:aws:logs:*:*:*",
-        "Effect": "Allow"
+        "Resource" : "arn:aws:logs:*:*:*",
+        "Effect" : "Allow"
       },
       {
-        "Action": [
+        "Action" : [
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
           "ec2:DeleteNetworkInterface",
@@ -53,15 +53,15 @@ resource "aws_iam_policy" "lambda_policy" {
           "ec2:DescribeSubnets",
           "ec2:DescribeVpcs",
         ],
-        "Resource": "*",
-        "Effect": "Allow"
+        "Resource" : "*",
+        "Effect" : "Allow"
       }
     ]
   })
 }
 
 resource "aws_iam_role_policy_attachment" "role_policy" {
-  role = aws_iam_role.lambda_role.name
+  role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
