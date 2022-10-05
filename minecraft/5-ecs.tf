@@ -25,6 +25,31 @@ resource "aws_iam_role" "ECSTaskExecutionRole" {
   }
 }
 
+resource "aws_iam_policy" "ECSTaskPolicy" {
+  
+  name        = "ECSTaskPolicy"
+  path        = "/"
+  description = "Permissions used by ECS tasks"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": [
+          "ecr:GetAuthorizationToken"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ECSRolePolicyAttachment" {
+  role       = "${aws_iam_role.ECSTaskExecutionRole.name}"
+  policy_arn = "${aws_iam_policy.ECSTaskPolicy.arn}"
+}
+
 resource "aws_ecs_cluster" "ecs_fargate" {
   name = "${var.name_prefix}-${random_string.rand4.result}"
 }
@@ -42,12 +67,19 @@ resource "aws_ecs_task_definition" "ecs_task" {
     [
       {
         "cpu" : var.container_cpu,
-        "image" : var.image_url,
+        "image" : aws_ecr_repository.backend.repository_url,
         "memory" : var.container_memory,
         "name" : var.name_prefix
         "portMappings" : [
           {
             "containerPort" : var.minecraft_port,
+            "hostPort": var.minecraft_port
+          }
+        ]
+        "environment" : [
+          {
+            "name" : "EULA"
+            "value": "TRUE"
           }
         ]
       }
