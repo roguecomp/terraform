@@ -46,8 +46,8 @@ resource "aws_iam_policy" "ECSTaskPolicy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ECSRolePolicyAttachment" {
-  role       = "${aws_iam_role.ECSTaskExecutionRole.name}"
-  policy_arn = "${aws_iam_policy.ECSTaskPolicy.arn}"
+  role       = aws_iam_role.ECSTaskExecutionRole.name
+  policy_arn = aws_iam_policy.ECSTaskPolicy.arn
 }
 
 resource "aws_ecs_cluster" "ecs_fargate" {
