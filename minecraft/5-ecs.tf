@@ -67,6 +67,12 @@ resource "aws_ecs_cluster" "ecs_fargate" {
   name = "${var.name_prefix}-${random_string.rand4.result}"
 }
 
+resource "aws_ecs_cluster_capacity_providers" "example" {
+  cluster_name = aws_ecs_cluster.ecs_fargate.name
+
+  capacity_providers = ["FARGATE_SPOT"]
+}
+
 resource "aws_ecs_task_definition" "ecs_task" {
   family                   = "${var.name_prefix}_server"
   cpu                      = var.container_cpu

@@ -21,7 +21,7 @@ resource "aws_ecr_repository" "backend" {
   # force_delete = true
 }
 
-resource "aws_ecr_repository_policy" "foopolicy" {
+resource "aws_ecr_repository_policy" "ecr_repository_policy" {
   repository = aws_ecr_repository.backend.name
 
   policy = <<EOF
