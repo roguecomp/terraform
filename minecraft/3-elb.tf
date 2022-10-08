@@ -1,12 +1,25 @@
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = var.elb_logs_s3
+}
+
 resource "aws_lb" "public" {
   name_prefix        = var.lb_name_prefix
   internal           = true
   load_balancer_type = "network"
-  idle_timeout       = "30"
-  subnets            = data.aws_subnets.public.ids
+
+  access_logs {
+    bucket = var.elb_logs_s3
+  }
+
+  idle_timeout = "120"
+  subnets      = data.aws_subnets.public.ids
   tags = {
     Environment = var.tag
   }
+
+  depends_on = [
+    aws_s3_bucket.log_bucket
+  ]
 }
 
 resource "aws_lb_listener" "public_listener" {

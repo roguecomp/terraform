@@ -4,6 +4,15 @@ resource "random_string" "rand4" {
   upper   = false
 }
 
+resource "aws_cloudwatch_log_group" "minecraft_logs" {
+  name = var.minecraft_ecs_cloudwatch_group
+
+  tags = {
+    Environment = "production"
+    Application = "serviceA"
+  }
+}
+
 resource "aws_iam_role" "ECSTaskExecutionRole" {
   name_prefix = var.name_prefix
 
@@ -26,20 +35,24 @@ resource "aws_iam_role" "ECSTaskExecutionRole" {
 }
 
 resource "aws_iam_policy" "ECSTaskPolicy" {
-  
+
   name        = "ECSTaskPolicy"
   path        = "/"
   description = "Permissions used by ECS tasks"
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Action": [
-          "ecr:GetAuthorizationToken"
+        "Action" : [
+          "ecr:GetAuthorizationToken",
+          "logs:CreateLogStream",
+          "logs:DescribeLogStreams",
+          "logs:PutRetentionPolicy",
+          "logs:CreateLogGroup"
         ],
-        "Effect": "Allow",
-        "Resource": "*"
+        "Effect" : "Allow",
+        "Resource" : "*"
       }
     ]
   })
@@ -73,15 +86,23 @@ resource "aws_ecs_task_definition" "ecs_task" {
         "portMappings" : [
           {
             "containerPort" : var.minecraft_port,
-            "hostPort": var.minecraft_port
+            "hostPort" : var.minecraft_port
           }
         ]
         "environment" : [
           {
             "name" : "EULA"
-            "value": "TRUE"
+            "value" : "TRUE"
           }
         ]
+        "logConfiguration" : {
+          "logDriver" : "awslogs",
+          "options" : {
+            "awslogs-group" : var.minecraft_ecs_cloudwatch_group,
+            "awslogs-region" : var.region,
+            "awslogs-stream-prefix" : "ecs"
+          }
+        }
       }
   ])
 }

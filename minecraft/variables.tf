@@ -4,6 +4,18 @@ variable "region" {
   default     = "ap-southeast-2"
 }
 
+variable "minecraft_ecs_cloudwatch_group" {
+  type        = string
+  description = "Cloud Watch log group name to push ecs logs to"
+  default     = "minecraft"
+}
+
+variable "elb_logs_s3" {
+  type        = string
+  description = "s3 bucket name to store elb logs in"
+  default     = "elb-minecraft-cluster"
+}
+
 variable "minecraft_port" {
   description = "port used by minecraft server java edition"
   type        = number
@@ -31,13 +43,13 @@ variable "lb_name_prefix" {
 variable "container_cpu" {
   type        = number
   description = "How much CPU to give the container. 1024 is 1 CPU"
-  default     = 512
+  default     = 1024
 }
 
 variable "container_memory" {
   type        = number
   description = "How much memory in megabytes to give the container"
-  default     = 1024
+  default     = 2048
 }
 
 variable "image_url" {
@@ -61,5 +73,5 @@ variable "remote_cidr_blocks" {
 variable "desired_count" {
   type        = number
   description = "number of tasks to launch"
-  default     = 2
+  default     = 1
 }

@@ -16,9 +16,9 @@ provider "docker" {
 }
 
 resource "aws_ecr_repository" "backend" {
-  name = "minecraft"
+  name                 = "minecraft"
   image_tag_mutability = "IMMUTABLE"
-#   force_delete = true
+  # force_delete = true
 }
 
 resource "aws_ecr_repository_policy" "foopolicy" {
