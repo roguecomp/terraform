@@ -4,6 +4,12 @@ variable "region" {
   default     = "ap-southeast-2"
 }
 
+variable "minecraft_url" {
+  type        = string
+  description = "points to the route53 dns name that will forward to elb"
+  default     = "visham.org"
+}
+
 variable "minecraft_ecs_cloudwatch_group" {
   type        = string
   description = "Cloud Watch log group name to push ecs logs to"

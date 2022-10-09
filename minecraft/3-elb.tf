@@ -1,5 +1,5 @@
 resource "aws_lb" "public" {
-  name_prefix        = var.lb_name_prefix
+  name_prefix = var.lb_name_prefix
   # internal           = true
   load_balancer_type = "network"
 
