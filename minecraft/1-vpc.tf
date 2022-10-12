@@ -1,3 +1,15 @@
+provider "aws" {
+  region = var.region
+}
+
+terraform {
+  backend "s3" {
+    bucket = "minecraft-fargate-tf-state"
+    key    = "terraform.tfstate"
+    region = "ap-southeast-2"
+  }
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.14.3"

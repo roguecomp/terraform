@@ -71,6 +71,10 @@ resource "aws_ecs_cluster_capacity_providers" "example" {
   cluster_name = aws_ecs_cluster.ecs_fargate.name
 
   capacity_providers = ["FARGATE_SPOT"]
+
+  default_capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+  }
 }
 
 resource "aws_ecs_task_definition" "ecs_task" {

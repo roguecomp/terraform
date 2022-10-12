@@ -7,3 +7,8 @@ minecraft/.terraform/
 minecraft/.terraform*
 minecraft/*.tfstate
 minecraft/*.tfstate.backup
+
+website/.terraform/
+website/.terraform*
+website/*.tfstate
+website/*.tfstate.backup
