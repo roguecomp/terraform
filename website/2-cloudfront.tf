@@ -1,6 +1,6 @@
 provider "aws" {
   alias = "virginia"
-  region = "us-east-1"
+  region = "us-east-1" # acm certificate can only happen in Virginia
 }
 
 resource "aws_acm_certificate" "cert" {

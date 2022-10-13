@@ -1,5 +1,5 @@
 resource "aws_route53_record" "www" {
-  zone_id = "Z02024842F73WIP3EA0PB"
+  zone_id = var.route53_zone_id
   name    = var.www_url
   type    = "A"
 
@@ -11,7 +11,7 @@ resource "aws_route53_record" "www" {
 }
 
 resource "aws_route53_record" "dns" {
-  zone_id = "Z02024842F73WIP3EA0PB"
+  zone_id = var.route53_zone_id
   name    = var.url
   type    = "A"
 
