@@ -39,7 +39,6 @@ resource "aws_s3_bucket_policy" "allow_access" {
   })
 }
 
-
 resource "aws_s3_bucket_acl" "s3_static_website_acl" {
   bucket = aws_s3_bucket.s3_static_website.id
   acl    = "public-read"
@@ -52,30 +51,6 @@ resource "aws_s3_bucket_website_configuration" "s3_static_website" {
     suffix = "index.html"
   }
 }
-
-# ================================================================
-
-
-# resource "aws_s3_bucket" "www" {
-#   bucket = var.www_url
-#   tags = {
-#     Name = var.url
-#   }
-# }
-
-# resource "aws_s3_bucket_acl" "www" {
-#   bucket = aws_s3_bucket.www.id
-
-#   acl = "private"
-# }
-
-# resource "aws_s3_bucket_website_configuration" "www" {
-#   bucket = aws_s3_bucket.s3_static_website.id
-
-#   redirect_all_requests_to {
-#     host_name = var.url
-#   }
-# }
 
 resource "aws_s3_object" "object" {
   bucket = var.www_url
