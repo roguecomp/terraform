@@ -27,3 +27,9 @@ variable "route53_zone_id" {
   description = "zone id of the route53 hosted zone that contains our website"
   default = "Z02024842F73WIP3EA0PB"
 }
+
+variable "root_html" {
+  type = string
+  description = "HTML root file to be loaded first"
+  default = "index.html"
+}

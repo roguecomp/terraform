@@ -48,17 +48,17 @@ resource "aws_s3_bucket_website_configuration" "s3_static_website" {
   bucket = aws_s3_bucket.s3_static_website.bucket
 
   index_document {
-    suffix = "index.html"
+    suffix = var.root_html
   }
 }
 
 resource "aws_s3_object" "object" {
   bucket = var.www_url
-  key    = "index.html"
-  source = "src/index.html"
+  key    = var.root_html
+  source = "src/${var.root_html}"
   acl    = "public-read"
   content_type = "text/html"
-  etag   = filemd5("src/index.html")
+  etag   = filemd5("src/${var.root_html}")
 
   depends_on = [
     aws_s3_bucket.s3_static_website
