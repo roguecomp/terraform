@@ -11,9 +11,9 @@ variable "www_url" {
 }
 
 variable "favicon_path" {
-  type = string
+  type        = string
   description = "path to favicon png file"
-  default = "images/favicon.png"
+  default     = "images/favicon.png"
 }
 
 variable "url" {
@@ -29,13 +29,13 @@ variable "region" {
 }
 
 variable "route53_zone_id" {
-  type = string
+  type        = string
   description = "zone id of the route53 hosted zone that contains our website"
-  default = "Z02024842F73WIP3EA0PB"
+  default     = "Z02024842F73WIP3EA0PB"
 }
 
 variable "root_html" {
-  type = string
+  type        = string
   description = "HTML root file to be loaded first"
-  default = "index.html"
+  default     = "index.html"
 }

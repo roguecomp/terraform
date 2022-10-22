@@ -1,5 +1,5 @@
 provider "aws" {
-  alias = "virginia"
+  alias  = "virginia"
   region = "us-east-1" # acm certificate can only happen in Virginia
 }
 
@@ -7,7 +7,7 @@ resource "aws_acm_certificate" "cert" {
   domain_name               = var.url
   subject_alternative_names = ["*.${var.url}"]
   validation_method         = "DNS"
-  provider = aws.virginia
+  provider                  = aws.virginia
 
   tags = {
     Name = var.url
@@ -16,7 +16,7 @@ resource "aws_acm_certificate" "cert" {
 
 resource "aws_acm_certificate_validation" "cert" {
   certificate_arn = aws_acm_certificate.cert.arn
-  provider = aws.virginia
+  provider        = aws.virginia
 }
 
 resource "aws_cloudfront_distribution" "cdn" {

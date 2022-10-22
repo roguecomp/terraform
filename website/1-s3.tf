@@ -11,7 +11,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "s3_static_website" {
-  bucket = var.www_url
+  bucket        = var.www_url
   force_destroy = true
 
   tags = {
@@ -53,12 +53,12 @@ resource "aws_s3_bucket_website_configuration" "s3_static_website" {
 }
 
 resource "aws_s3_object" "object" {
-  bucket = var.www_url
-  key    = var.root_html
-  source = "src/${var.root_html}"
-  acl    = "public-read"
+  bucket       = var.www_url
+  key          = var.root_html
+  source       = "src/${var.root_html}"
+  acl          = "public-read"
   content_type = "text/html"
-  etag   = filemd5("src/${var.root_html}")
+  etag         = filemd5("src/${var.root_html}")
 
   depends_on = [
     aws_s3_bucket.s3_static_website
@@ -71,7 +71,7 @@ resource "aws_s3_object" "favicon" {
   source = "src/${var.favicon_path}"
   acl    = "public-read"
   # content_type = "text/html"
-  etag   = filemd5("src/${var.favicon_path}")
+  etag = filemd5("src/${var.favicon_path}")
 
   depends_on = [
     aws_s3_bucket.s3_static_website
