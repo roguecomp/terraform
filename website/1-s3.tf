@@ -64,3 +64,16 @@ resource "aws_s3_object" "object" {
     aws_s3_bucket.s3_static_website
   ]
 }
+
+resource "aws_s3_object" "favicon" {
+  bucket = var.www_url
+  key    = var.favicon_path
+  source = "src/${var.favicon_path}"
+  acl    = "public-read"
+  # content_type = "text/html"
+  etag   = filemd5("src/${var.favicon_path}")
+
+  depends_on = [
+    aws_s3_bucket.s3_static_website
+  ]
+}

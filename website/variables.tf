@@ -10,6 +10,12 @@ variable "www_url" {
   default     = "www.visham.org"
 }
 
+variable "favicon_path" {
+  type = string
+  description = "path to favicon png file"
+  default = "images/favicon.png"
+}
+
 variable "url" {
   type        = string
   description = "The url for the website"
